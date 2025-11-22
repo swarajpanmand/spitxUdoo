@@ -101,6 +101,17 @@
     color: var(--teal-900);
 }
 
+.status-filter {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: white;
+    color: var(--teal-900);
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+}
+
 .view-toggles {
     display: flex;
     background: white;
@@ -189,7 +200,6 @@
 .status-waiting {
     background: #fff7ed;
     color: #c2410c;
-    /* Orange for waiting, not red */
     border: 1px solid #ffedd5;
 }
 
@@ -197,4 +207,73 @@
     background: #ecfdf5;
     color: #059669;
     border: 1px solid #d1fae5;
+}
+
+.status-canceled {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+/* Kanban View Styles */
+.kanban-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
+}
+
+.kanban-column {
+    background: #f9fafb;
+    border-radius: 0.75rem;
+    padding: var(--spacing-md);
+    min-height: 400px;
+}
+
+.kanban-header {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--teal-700);
+    margin: 0 0 var(--spacing-md) 0;
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--teal-200);
+}
+
+.kanban-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.kanban-card {
+    background: white;
+    border-radius: 0.5rem;
+    padding: var(--spacing-md);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.kanban-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.kanban-card h4 {
+    margin: 0 0 var(--spacing-sm) 0;
+    color: var(--teal-900);
+    font-size: 0.95rem;
+}
+
+.kanban-card p {
+    margin: 0.25rem 0;
+    font-size: 0.85rem;
+    color: var(--teal-700);
+}
+
+.kanban-card .text-sm {
+    font-size: 0.75rem;
+    color: var(--teal-500);
 }
