@@ -45,31 +45,31 @@
 
 /* Variants */
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-500) 100%);
+    background: linear-gradient(135deg, var(--teal-500) 0%, var(--teal-600) 100%);
     color: white;
 }
 
 .btn-primary:not(:disabled):hover {
-    background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-600) 100%);
+    background: linear-gradient(135deg, var(--teal-600) 0%, var(--teal-700) 100%);
 }
 
 .btn-secondary {
-    background: linear-gradient(135deg, var(--secondary-600) 0%, var(--secondary-500) 100%);
+    background: linear-gradient(135deg, var(--mustard-400) 0%, var(--mustard-500) 100%);
     color: white;
 }
 
 .btn-secondary:not(:disabled):hover {
-    background: linear-gradient(135deg, var(--secondary-700) 0%, var(--secondary-600) 100%);
+    background: linear-gradient(135deg, var(--mustard-500) 0%, var(--mustard-600) 100%);
 }
 
 .btn-outline {
     background: transparent;
-    border: 2px solid var(--primary-500);
-    color: var(--primary-600);
+    border: 2px solid var(--teal-500);
+    color: var(--teal-600);
 }
 
 .btn-outline:not(:disabled):hover {
-    background: var(--primary-50);
+    background: var(--teal-50);
 }
 
 .btn-ghost {

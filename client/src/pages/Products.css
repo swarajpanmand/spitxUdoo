@@ -134,9 +134,9 @@
 }
 
 .action-btn-edit:hover {
-    background: var(--primary-50);
-    border-color: var(--primary-500);
-    color: var(--primary-600);
+    background: var(--teal-50);
+    border-color: var(--teal-500);
+    color: var(--teal-600);
 }
 
 .action-btn-delete:hover {
