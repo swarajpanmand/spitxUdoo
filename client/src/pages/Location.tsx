@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MainLayout } from "../components/layout/MainLayout";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/Input";
-import { Plus, Edit, Trash2, Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import "./Location.css";
 
 interface Warehouse {
