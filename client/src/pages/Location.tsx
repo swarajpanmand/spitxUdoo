@@ -11,18 +11,24 @@ interface Location {
   name: string;
   shortCode: string;
   warehouse: string;
+  aisle?: string;
+  rack?: string;
+  bin?: string;
 }
 
 export const Location: React.FC = () => {
   const navigate = useNavigate();
   const [locations, setLocations] = useState<Location[]>([
-    { id: "1", name: "Rack A1", shortCode: "LOC-A1", warehouse: "WH-001" },
-    { id: "2", name: "Rack B2", shortCode: "LOC-B2", warehouse: "WH-001" },
+    { id: "1", name: "Rack A1", shortCode: "LOC-A1", warehouse: "WH-001", aisle: "A1", rack: "R1", bin: "B1" },
+    { id: "2", name: "Rack B2", shortCode: "LOC-B2", warehouse: "WH-001", aisle: "A2", rack: "R2", bin: "B2" },
     {
       id: "3",
       name: "Production Shelf 1",
       shortCode: "LOC-PS1",
       warehouse: "WH-002",
+      aisle: "P1",
+      rack: "R1",
+      bin: "B1",
     },
     {
       id: "4",
@@ -38,6 +44,9 @@ export const Location: React.FC = () => {
     name: "",
     shortCode: "",
     warehouse: "",
+    aisle: "",
+    rack: "",
+    bin: "",
   });
 
   const warehouses = [
@@ -59,7 +68,7 @@ export const Location: React.FC = () => {
       ...formData,
     };
     setLocations([...locations, newLocation]);
-    setFormData({ name: "", shortCode: "", warehouse: "" });
+    setFormData({ name: "", shortCode: "", warehouse: "", aisle: "", rack: "", bin: "" });
     setIsFormOpen(false);
   };
 
@@ -147,13 +156,48 @@ export const Location: React.FC = () => {
                   ))}
                 </select>
               </div>
+              <div className="form-row">
+                <div className="form-field">
+                  <label>Aisle:</label>
+                  <Input
+                    type="text"
+                    value={formData.aisle}
+                    onChange={(e) =>
+                      setFormData({ ...formData, aisle: e.target.value })
+                    }
+                    placeholder="e.g., A1"
+                  />
+                </div>
+                <div className="form-field">
+                  <label>Rack:</label>
+                  <Input
+                    type="text"
+                    value={formData.rack}
+                    onChange={(e) =>
+                      setFormData({ ...formData, rack: e.target.value })
+                    }
+                    placeholder="e.g., R1"
+                  />
+                </div>
+                <div className="form-field">
+                  <label>Bin:</label>
+                  <Input
+                    type="text"
+                    value={formData.bin}
+                    onChange={(e) =>
+                      setFormData({ ...formData, bin: e.target.value })
+                    }
+                    placeholder="e.g., B1"
+                  />
+                </div>
+              </div>
               <div className="form-actions">
                 <Button type="submit">Save Location</Button>
                 <Button
                   type="button"
                   onClick={() => {
                     setIsFormOpen(false);
-                    setFormData({ name: "", shortCode: "", warehouse: "" });
+                    setFormData({ name: "", shortCode: "", warehouse: "", aisle: "", rack: "", bin: "" });
                   }}
                   style={{ background: "var(--error-color)" }}
                 >
@@ -196,6 +240,24 @@ export const Location: React.FC = () => {
                     {getWarehouseName(location.warehouse)}
                   </span>
                 </div>
+                {location.aisle && (
+                  <div className="location-info">
+                    <span className="location-label">Aisle:</span>
+                    <span className="location-value">{location.aisle}</span>
+                  </div>
+                )}
+                {location.rack && (
+                  <div className="location-info">
+                    <span className="location-label">Rack:</span>
+                    <span className="location-value">{location.rack}</span>
+                  </div>
+                )}
+                {location.bin && (
+                  <div className="location-info">
+                    <span className="location-label">Bin:</span>
+                    <span className="location-value">{location.bin}</span>
+                  </div>
+                )}
               </div>
             </div>
           ))}

@@ -7,6 +7,7 @@ import { PasswordReset } from "./pages/auth/PasswordReset";
 import { Dashboard } from "./pages/Dashboard";
 import { Operations } from "./pages/Operations";
 import { Stock } from "./pages/Stock";
+import { MoveHistory } from "./pages/MoveHistory";
 import { Receipt } from "./pages/Receipt";
 import { Delivery } from "./pages/Delivery";
 import { Adjustment } from "./pages/Adjustment";
@@ -53,9 +54,7 @@ function App() {
             path="/history"
             element={
               <ProtectedRoute>
-                <div style={{ padding: "2rem" }}>
-                  <h1>Move History - Coming Soon</h1>
-                </div>
+                <MoveHistory />
               </ProtectedRoute>
             }
           />

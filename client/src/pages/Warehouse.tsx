@@ -10,6 +10,8 @@ interface Warehouse {
   name: string;
   shortCode: string;
   address: string;
+  isActive: boolean;
+  createdAt?: string;
 }
 
 export const Warehouse: React.FC = () => {
@@ -19,18 +21,24 @@ export const Warehouse: React.FC = () => {
       name: "Main Warehouse",
       shortCode: "WH-001",
       address: "123 Storage St, City",
+      isActive: true,
+      createdAt: "2024-01-15",
     },
     {
       id: "2",
       name: "Production Floor",
       shortCode: "WH-002",
       address: "456 Factory Rd, City",
+      isActive: true,
+      createdAt: "2024-02-20",
     },
     {
       id: "3",
       name: "Distribution Center",
       shortCode: "WH-003",
       address: "789 Logistics Ave, City",
+      isActive: false,
+      createdAt: "2024-03-10",
     },
   ]);
 
@@ -40,6 +48,7 @@ export const Warehouse: React.FC = () => {
     name: "",
     shortCode: "",
     address: "",
+    isActive: true,
   });
 
   const filteredWarehouses = warehouses.filter(
@@ -53,9 +62,10 @@ export const Warehouse: React.FC = () => {
     const newWarehouse: Warehouse = {
       id: Date.now().toString(),
       ...formData,
+      createdAt: new Date().toISOString().split('T')[0],
     };
     setWarehouses([...warehouses, newWarehouse]);
-    setFormData({ name: "", shortCode: "", address: "" });
+    setFormData({ name: "", shortCode: "", address: "", isActive: true });
     setIsFormOpen(false);
   };
 
@@ -119,15 +129,27 @@ export const Warehouse: React.FC = () => {
               </div>
               <div className="form-field">
                 <label>Address:</label>
-                <Input
-                  type="text"
+                <textarea
                   value={formData.address}
                   onChange={(e) =>
                     setFormData({ ...formData, address: e.target.value })
                   }
                   placeholder="Enter warehouse address"
                   required
+                  rows={3}
+                  className="warehouse-textarea"
                 />
+              </div>
+              <div className="form-field checkbox-field">
+                <input
+                  type="checkbox"
+                  id="isActive"
+                  checked={formData.isActive}
+                  onChange={(e) =>
+                    setFormData({ ...formData, isActive: e.target.checked })
+                  }
+                />
+                <label htmlFor="isActive">Active Warehouse</label>
               </div>
               <div className="form-actions">
                 <Button type="submit">Save Warehouse</Button>
@@ -135,7 +157,7 @@ export const Warehouse: React.FC = () => {
                   type="button"
                   onClick={() => {
                     setIsFormOpen(false);
-                    setFormData({ name: "", shortCode: "", address: "" });
+                    setFormData({ name: "", shortCode: "", address: "", isActive: true });
                   }}
                   style={{ background: "var(--error-color)" }}
                 >
@@ -150,7 +172,12 @@ export const Warehouse: React.FC = () => {
           {filteredWarehouses.map((warehouse) => (
             <div key={warehouse.id} className="warehouse-card card">
               <div className="warehouse-card-header">
-                <h3>{warehouse.name}</h3>
+                <div>
+                  <h3>{warehouse.name}</h3>
+                  <span className={`status-badge ${warehouse.isActive ? 'status-active' : 'status-inactive'}`}>
+                    {warehouse.isActive ? 'Active' : 'Inactive'}
+                  </span>
+                </div>
                 <div className="warehouse-actions">
                   <button className="action-btn action-btn-edit" title="Edit">
                     <Edit size={16} />
