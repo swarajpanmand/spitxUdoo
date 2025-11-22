@@ -5,7 +5,8 @@ import { Login } from './pages/auth/Login';
 import { Signup } from './pages/auth/Signup';
 import { PasswordReset } from './pages/auth/PasswordReset';
 import { Dashboard } from './pages/Dashboard';
-import { Products } from './pages/Products';
+import { Operations } from './pages/Operations';
+import { Stock } from './pages/Stock';
 import './styles/global.css';
 
 function App() {
@@ -28,50 +29,18 @@ function App() {
             }
           />
           <Route
-            path="/products"
+            path="/operations"
             element={
               <ProtectedRoute>
-                <Products />
+                <Operations />
               </ProtectedRoute>
             }
           />
           <Route
-            path="/receipts"
+            path="/stock"
             element={
               <ProtectedRoute>
-                <div style={{ padding: '2rem' }}>
-                  <h1>Receipts - Coming Soon</h1>
-                </div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/deliveries"
-            element={
-              <ProtectedRoute>
-                <div style={{ padding: '2rem' }}>
-                  <h1>Deliveries - Coming Soon</h1>
-                </div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/transfers"
-            element={
-              <ProtectedRoute>
-                <div style={{ padding: '2rem' }}>
-                  <h1>Internal Transfers - Coming Soon</h1>
-                </div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/adjustments"
-            element={
-              <ProtectedRoute>
-                <div style={{ padding: '2rem' }}>
-                  <h1>Inventory Adjustments - Coming Soon</h1>
-                </div>
+                <Stock />
               </ProtectedRoute>
             }
           />
@@ -81,16 +50,6 @@ function App() {
               <ProtectedRoute>
                 <div style={{ padding: '2rem' }}>
                   <h1>Move History - Coming Soon</h1>
-                </div>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/warehouses"
-            element={
-              <ProtectedRoute>
-                <div style={{ padding: '2rem' }}>
-                  <h1>Warehouses - Coming Soon</h1>
                 </div>
               </ProtectedRoute>
             }
