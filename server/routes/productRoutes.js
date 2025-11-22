@@ -1,3 +1,4 @@
+// src/routes/productRoutes.js
 import express from "express";
 import * as productController from "../controllers/productController.js";
 import { authMiddleware, permit } from "../middleware/auth.js";
