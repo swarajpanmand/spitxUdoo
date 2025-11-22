@@ -12,12 +12,13 @@ import { Operations } from "./pages/Operations";
 import { Stock } from "./pages/Stock";
 import { Receipts } from "./pages/Receipts";
 import { ReceiptDetail } from "./pages/ReceiptDetail";
-import { Delivery } from './pages/Delivery';
-import { DeliveryDetail } from './pages/DeliveryDetail';
-import { Warehouse } from './pages/Warehouse';
-import { Location } from './pages/Location';
-import { MoveHistory } from './pages/MoveHistory';
-import './styles/global.css';
+import { Delivery } from "./pages/Delivery";
+import { DeliveryDetail } from "./pages/DeliveryDetail";
+import { Warehouse } from "./pages/Warehouse";
+import { Location } from "./pages/Location";
+import { MoveHistory } from "./pages/MoveHistory";
+import { Adjustment } from "./pages/Adjustment";
+import "./styles/global.css";
 
 function App() {
   return (
@@ -94,6 +95,16 @@ function App() {
             element={
               <ProtectedRoute>
                 <MoveHistory />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Operations Routes */}
+          <Route
+            path="/operations/adjustment"
+            element={
+              <ProtectedRoute>
+                <Adjustment />
               </ProtectedRoute>
             }
           />

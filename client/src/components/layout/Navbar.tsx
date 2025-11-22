@@ -107,6 +107,16 @@ export const Navbar: React.FC = () => {
               >
                 Delivery
               </NavLink>
+              <NavLink
+                to="/operations/adjustment"
+                className={({ isActive }) =>
+                  isActive
+                    ? "navbar-dropdown-link navbar-dropdown-link-active"
+                    : "navbar-dropdown-link"
+                }
+              >
+                Adjustment
+              </NavLink>
             </div>
           )}
         </div>
