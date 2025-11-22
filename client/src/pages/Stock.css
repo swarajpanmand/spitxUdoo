@@ -1,0 +1,12 @@
+.stock-page {
+    padding: var(--spacing-xl);
+}
+
+.stock-page h2 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.stock-page p {
+    color: var(--text-secondary);
+}

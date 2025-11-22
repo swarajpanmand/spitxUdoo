@@ -1,0 +1,12 @@
+.operations-page {
+    padding: var(--spacing-xl);
+}
+
+.operations-page h2 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.operations-page p {
+    color: var(--text-secondary);
+}
