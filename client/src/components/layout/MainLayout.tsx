@@ -13,17 +13,27 @@ interface MainLayoutProps {
 export const MainLayout: React.FC<MainLayoutProps> = ({ children, title }) => {
     const [toasts, setToasts] = React.useState<Array<{ id: string; type: 'success' | 'error' | 'info' | 'warning'; message: string }>>([]);
 
-    const addToast = (type: 'success' | 'error' | 'info' | 'warning', message: string) => {
+    const addToast = React.useCallback((type: 'success' | 'error' | 'info' | 'warning', message: string) => {
         const id = Date.now().toString();
         setToasts(prev => [...prev, { id, type, message }]);
-    };
+    }, []);
 
-    const removeToast = (id: string) => {
+    const removeToast = React.useCallback((id: string) => {
         setToasts(prev => prev.filter(toast => toast.id !== id));
-    };
+    }, []);
 
     React.useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
+            // Ignore if user is typing in an input, textarea, or contenteditable element
+            const target = event.target as HTMLElement;
+            if (
+                target.tagName === 'INPUT' ||
+                target.tagName === 'TEXTAREA' ||
+                target.isContentEditable
+            ) {
+                return;
+            }
+
             if (event.key.toLowerCase() === 'q') {
                 const stockMessages = [
                     'New Stock Received: 50x Steel Rods',
@@ -43,7 +53,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children, title }) => {
         return () => {
             window.removeEventListener('keydown', handleKeyPress);
         };
-    }, []);
+    }, [addToast]);
 
     return (
         <div className="main-layout">
