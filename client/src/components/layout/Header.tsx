@@ -1,5 +1,6 @@
 import React from 'react';
 import { Search, Bell } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 import './Header.css';
 
 interface HeaderProps {
@@ -14,13 +15,16 @@ const getGreeting = () => {
 };
 
 export const Header: React.FC<HeaderProps> = () => {
-    const userName = 'Alex'; // This could come from auth context
+    const { user } = useAuth();
+
+    // Get first name only (split by space and take first part)
+    const firstName = user?.name?.split(' ')[0] || 'User';
 
     return (
         <header className="header">
             <div className="header-left">
                 <div className="header-greeting">
-                    <h1 className="greeting-text">{getGreeting()}, <span className="user-name">{userName}</span></h1>
+                    <h1 className="greeting-text">{getGreeting()}, <span className="user-name">{firstName}</span></h1>
                     <p className="greeting-subtitle">Here's what's happening today</p>
                 </div>
             </div>
