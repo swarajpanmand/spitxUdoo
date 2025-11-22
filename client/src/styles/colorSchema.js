@@ -2,60 +2,60 @@
 // Premium Pastel Theme - Teal, Olive Green, Mustard Yellow
 
 export const colors = {
-    // Teal Shades (Primary)
+    // Dark Teal/Green Shades (Sidebar & Primary)
     teal: {
-        50: '#e6f4f4',
-        100: '#b3e0e0',
-        200: '#80cccc',
-        300: '#4db8b8',
-        400: '#1aa4a4',
-        500: '#4a7c7c',  // Main teal
-        600: '#3d6565',
-        700: '#2f4e4e',
-        800: '#223737',
-        900: '#152020',
+        50: '#e8f0f0',
+        100: '#c5d9d9',
+        200: '#9ec0c0',
+        300: '#77a7a7',
+        400: '#5a9494',
+        500: '#4a6464',  // Main dark teal
+        600: '#3d5555',  // Sidebar background
+        700: '#2f4444',
+        800: '#223333',
+        900: '#152222',
     },
 
-    // Olive Green Shades (Secondary/Success)
+    // Olive/Teal Mix Shades
     olive: {
-        50: '#f4f5ed',
-        100: '#e3e7cc',
-        200: '#d2d9ab',
-        300: '#c1cb8a',
-        400: '#b0bd69',
-        500: '#8a9456',  // Main olive
-        600: '#6d7645',
-        700: '#515833',
-        800: '#343a22',
-        900: '#1a1d11',
+        50: '#f0f2ed',
+        100: '#dae0cc',
+        200: '#c2cdab',
+        300: '#aaba8a',
+        400: '#97ac70',
+        500: '#7a8f56',
+        600: '#6d7f4f',
+        700: '#5d6c45',
+        800: '#4e5a3b',
+        900: '#323b29',
     },
 
-    // Mustard Yellow Shades (Accent/Warning)
+    // Mustard Yellow Shades (Accent)
     mustard: {
         50: '#fef9e6',
-        100: '#fceeb3',
-        200: '#fae380',
-        300: '#f8d84d',
-        400: '#f6cd1a',  // Bright mustard
-        500: '#d4a817',  // Main mustard
-        600: '#a68312',
-        700: '#785e0d',
-        800: '#4a3908',
-        900: '#1c1403',
+        100: '#fdf0c2',
+        200: '#fbe699',
+        300: '#f9dc70',
+        400: '#f8d452',
+        500: '#c9a236',  // Main mustard
+        600: '#b38f2e',
+        700: '#9a7a25',
+        800: '#80651d',
+        900: '#5c4a10',
     },
 
-    // Neutral Pastels
+    // Neutral Cream/Beige
     cream: {
         50: '#fdfcfa',
         100: '#f9f7f3',
-        200: '#f5f2ec',  // Main background
-        300: '#f1ede5',
-        400: '#ede8de',
-        500: '#d9d4ca',  // Borders
-        600: '#c5c0b6',
-        700: '#b1aca2',
-        800: '#9d988e',
-        900: '#89847a',
+        200: '#e8e5dc',  // Main background
+        300: '#ddd9cf',
+        400: '#d2cdc2',
+        500: '#c7c1b5',
+        600: '#b5afa3',
+        700: '#a39d91',
+        800: '#918b7f',
+        900: '#7f796d',
     },
 
     // Error/Danger (Muted Red)
@@ -67,22 +67,22 @@ export const colors = {
 
     // Semantic Colors
     semantic: {
-        background: '#f5f2ec',      // Warm cream
+        background: '#e8e5dc',      // Light cream
         surface: '#ffffff',          // White cards
-        textPrimary: '#2f4e4e',     // Dark teal
-        textSecondary: '#6d7645',   // Olive
-        border: '#d9d4ca',          // Soft cream
-        shadow: 'rgba(47, 78, 78, 0.08)',
+        textPrimary: '#2f4444',     // Dark teal
+        textSecondary: '#5d6c45',   // Olive
+        border: '#d2cdc2',          // Soft cream
+        shadow: 'rgba(61, 85, 85, 0.12)',
     },
 };
 
 // Gradient Combinations
 export const gradients = {
-    primary: 'linear-gradient(135deg, #4a7c7c 0%, #3d6565 100%)',        // Teal
-    secondary: 'linear-gradient(135deg, #8a9456 0%, #6d7645 100%)',     // Olive
-    accent: 'linear-gradient(135deg, #f6cd1a 0%, #d4a817 100%)',        // Mustard
-    mixed: 'linear-gradient(135deg, #4a7c7c 0%, #8a9456 100%)',         // Teal to Olive
-    text: 'linear-gradient(135deg, #3d6565 0%, #6d7645 100%)',          // Teal to Olive (darker)
+    primary: 'linear-gradient(135deg, #4a6464 0%, #3d5555 100%)',        // Dark Teal
+    secondary: 'linear-gradient(135deg, #7a8f56 0%, #6d7f4f 100%)',     // Olive
+    accent: 'linear-gradient(135deg, #c9a236 0%, #b38f2e 100%)',        // Mustard
+    mixed: 'linear-gradient(135deg, #4a6464 0%, #7a8f56 100%)',         // Teal to Olive
+    text: 'linear-gradient(135deg, #3d5555 0%, #6d7f4f 100%)',          // Teal to Olive (darker)
 };
 
 // Shadow Styles

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { MainLayout } from '../components/layout/MainLayout';
 import { Search, Plus, LayoutList, Kanban, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import './Receipts.css'; // Reusing Receipts CSS for consistent styling
+import './Receipts.css';
 
-interface Delivery {
+interface Receipt {
     id: string;
     reference: string;
     from: string;
@@ -14,25 +14,25 @@ interface Delivery {
     status: 'Ready' | 'Draft' | 'Done';
 }
 
-export const Delivery: React.FC = () => {
+export const Receipts: React.FC = () => {
     const navigate = useNavigate();
     const [viewMode, setViewMode] = useState<'list' | 'kanban'>('list');
 
-    const deliveries: Delivery[] = [
+    const receipts: Receipt[] = [
         {
             id: '1',
-            reference: 'WH/OUT/0001',
-            from: 'WH/Stock1',
-            to: 'Vendor',
+            reference: 'WH/IN/0001',
+            from: 'Vendor',
+            to: 'WH/Stock',
             contact: 'Azure Interior',
             scheduleDate: '2023-11-22',
             status: 'Ready',
         },
         {
             id: '2',
-            reference: 'WH/OUT/0002',
-            from: 'WH/Stock1',
-            to: 'Vendor',
+            reference: 'WH/IN/0002',
+            from: 'Vendor',
+            to: 'WH/Stock',
             contact: 'Azure Interior',
             scheduleDate: '2023-11-23',
             status: 'Ready',
@@ -40,7 +40,7 @@ export const Delivery: React.FC = () => {
     ];
 
     return (
-        <MainLayout title="Delivery">
+        <MainLayout title="Receipts">
             <div className="receipts-page">
                 {/* Page Header */}
                 <div className="page-header">
@@ -53,7 +53,7 @@ export const Delivery: React.FC = () => {
                             <button className="btn-back" onClick={() => navigate('/dashboard')}>
                                 <ArrowLeft size={20} />
                             </button>
-                            <h1 className="page-title">Delivery</h1>
+                            <h1 className="page-title">Receipts</h1>
                         </div>
                     </div>
                     <div className="header-right">
@@ -93,20 +93,20 @@ export const Delivery: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {deliveries.map((delivery) => (
+                                {receipts.map((receipt) => (
                                     <tr
-                                        key={delivery.id}
-                                        onClick={() => navigate(`/delivery/${delivery.id}`)}
+                                        key={receipt.id}
+                                        onClick={() => navigate(`/receipts/${receipt.id}`)}
                                         style={{ cursor: 'pointer' }}
                                     >
-                                        <td className="font-medium text-teal-900">{delivery.reference}</td>
-                                        <td>{delivery.from}</td>
-                                        <td>{delivery.to}</td>
-                                        <td>{delivery.contact}</td>
-                                        <td>{delivery.scheduleDate}</td>
+                                        <td className="font-medium text-teal-900">{receipt.reference}</td>
+                                        <td>{receipt.from}</td>
+                                        <td>{receipt.to}</td>
+                                        <td>{receipt.contact}</td>
+                                        <td>{receipt.scheduleDate}</td>
                                         <td>
-                                            <span className={`status-badge status-${delivery.status.toLowerCase()}`}>
-                                                {delivery.status}
+                                            <span className={`status-badge status-${receipt.status.toLowerCase()}`}>
+                                                {receipt.status}
                                             </span>
                                         </td>
                                     </tr>

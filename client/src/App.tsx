@@ -1,18 +1,17 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import { ProtectedRoute } from "./components/ProtectedRoute";
-import { Login } from "./pages/auth/Login";
-import { Signup } from "./pages/auth/Signup";
-import { PasswordReset } from "./pages/auth/PasswordReset";
-import { Dashboard } from "./pages/Dashboard";
-import { Operations } from "./pages/Operations";
-import { Stock } from "./pages/Stock";
-import { Receipt } from "./pages/Receipt";
-import { Delivery } from "./pages/Delivery";
-import { Adjustment } from "./pages/Adjustment";
-import { Warehouse } from "./pages/Warehouse";
-import { Location } from "./pages/Location";
-import "./styles/global.css";
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { Login } from './pages/auth/Login';
+import { Signup } from './pages/auth/Signup';
+import { PasswordReset } from './pages/auth/PasswordReset';
+import { Dashboard } from './pages/Dashboard';
+import { Operations } from './pages/Operations';
+import { Stock } from './pages/Stock';
+import { Receipts } from './pages/Receipts';
+import { ReceiptDetail } from './pages/ReceiptDetail';
+import { Delivery } from './pages/Delivery';
+import { DeliveryDetail } from './pages/DeliveryDetail';
+import './styles/global.css';
 
 function App() {
   return (
@@ -46,6 +45,38 @@ function App() {
             element={
               <ProtectedRoute>
                 <Stock />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/receipts"
+            element={
+              <ProtectedRoute>
+                <Receipts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/receipts/:id"
+            element={
+              <ProtectedRoute>
+                <ReceiptDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/delivery"
+            element={
+              <ProtectedRoute>
+                <Delivery />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/delivery/:id"
+            element={
+              <ProtectedRoute>
+                <DeliveryDetail />
               </ProtectedRoute>
             }
           />
