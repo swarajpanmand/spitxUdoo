@@ -6,5 +6,6 @@ const router = express.Router();
 
 // GET /api/dashboard/kpis
 router.get("/kpis", authMiddleware, permit("ADMIN", "MANAGER", "WAREHOUSE"), dashboardController.getKpis);
+router.get("/recent-activity",authMiddleware,permit("ADMIN", "MANAGER", "WAREHOUSE"),dashboardController.getRecentActivity);
 
 export default router;
