@@ -84,9 +84,53 @@ function App() {
             path="/history"
             element={
               <ProtectedRoute>
-                <div style={{ padding: '2rem' }}>
+                <div style={{ padding: "2rem" }}>
                   <h1>Move History - Coming Soon</h1>
                 </div>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Operations Routes */}
+          <Route
+            path="/operations/receipt"
+            element={
+              <ProtectedRoute>
+                <Receipt />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/operations/delivery"
+            element={
+              <ProtectedRoute>
+                <Delivery />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/operations/adjustment"
+            element={
+              <ProtectedRoute>
+                <Adjustment />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Settings Routes */}
+          <Route
+            path="/settings/warehouse"
+            element={
+              <ProtectedRoute>
+                <Warehouse />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings/location"
+            element={
+              <ProtectedRoute>
+                <Location />
               </ProtectedRoute>
             }
           />
@@ -94,7 +138,7 @@ function App() {
             path="/settings"
             element={
               <ProtectedRoute>
-                <div style={{ padding: '2rem' }}>
+                <div style={{ padding: "2rem" }}>
                   <h1>Settings - Coming Soon</h1>
                 </div>
               </ProtectedRoute>

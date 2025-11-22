@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './config/db.js';
-import userRoutes from './routes/users.js';
+import router from './routes/index.js';
 
 // Load environment variables
 dotenv.config();
@@ -18,8 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 // Connect to MongoDB
 connectDB();
 
-// Routes
-app.use('/api/users', userRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
@@ -39,7 +37,10 @@ app.get('/health', (req, res) => {
     });
 });
 
-// Error handling middleware
+// Mount main API router
+app.use('/api', router);
+
+// Error handling middleware (must be after routes)
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({
@@ -48,7 +49,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
