@@ -3,6 +3,8 @@ import { MainLayout } from '../components/layout/MainLayout';
 import { useNavigate } from 'react-router-dom';
 import {
     Filter,
+    Truck,
+    ClipboardList,
 } from 'lucide-react';
 import './Dashboard.css';
 
@@ -27,62 +29,66 @@ export const Dashboard: React.FC = () => {
             <div className="dashboard">
                 {/* KPIs Section - Large Cards */}
                 <div className="dashboard-kpis-large">
-                    {/* Receipt Card */}
+                    {/* Receipt Card - Teal Theme */}
                     <div
-                        className="kpi-large-card clickable-card"
+                        className="kpi-large-card clickable-card theme-teal"
                         onClick={() => navigate('/receipts')}
                     >
-                        <div className="kpi-content-left">
-                            <div className="kpi-large-header">
-                                <h3 className="kpi-large-title">Receipt</h3>
+                        <div className="kpi-main">
+                            <div className="kpi-header">
+                                <div className="kpi-icon-box">
+                                    <ClipboardList size={20} />
+                                </div>
+                                <h3 className="kpi-title">Receipts</h3>
                             </div>
-                            <div className="kpi-primary-metric">
-                                <span className="kpi-metric-value">4</span>
-                                <span className="kpi-metric-label">to receive</span>
+                            <div className="kpi-metric-container">
+                                <span className="kpi-value-large">4</span>
+                                <span className="kpi-label-large">To Receive</span>
                             </div>
+                            <ClipboardList className="kpi-bg-icon" />
                         </div>
-                        <div className="kpi-content-right">
-                            <div className="kpi-large-stats">
-                                <div className="kpi-stat-item">
-                                    <span className="kpi-stat-label">Late</span>
-                                    <span className="kpi-stat-value">1</span>
-                                </div>
-                                <div className="kpi-stat-item">
-                                    <span className="kpi-stat-label">Operations</span>
-                                    <span className="kpi-stat-value">6</span>
-                                </div>
+                        <div className="kpi-sidebar">
+                            <div className="stat-row">
+                                <span className="stat-label">Late</span>
+                                <span className="stat-value">1</span>
+                            </div>
+                            <div className="stat-row">
+                                <span className="stat-label">Operations</span>
+                                <span className="stat-value">6</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Delivery Card */}
+                    {/* Delivery Card - Olive Theme */}
                     <div
-                        className="kpi-large-card clickable-card"
+                        className="kpi-large-card clickable-card theme-olive"
                         onClick={() => navigate('/delivery')}
                     >
-                        <div className="kpi-content-left">
-                            <div className="kpi-large-header">
-                                <h3 className="kpi-large-title">Delivery</h3>
+                        <div className="kpi-main">
+                            <div className="kpi-header">
+                                <div className="kpi-icon-box">
+                                    <Truck size={20} />
+                                </div>
+                                <h3 className="kpi-title">Delivery</h3>
                             </div>
-                            <div className="kpi-primary-metric">
-                                <span className="kpi-metric-value">4</span>
-                                <span className="kpi-metric-label">to Deliver</span>
+                            <div className="kpi-metric-container">
+                                <span className="kpi-value-large">4</span>
+                                <span className="kpi-label-large">To Deliver</span>
                             </div>
+                            <Truck className="kpi-bg-icon" />
                         </div>
-                        <div className="kpi-content-right">
-                            <div className="kpi-large-stats">
-                                <div className="kpi-stat-item">
-                                    <span className="kpi-stat-label">Late</span>
-                                    <span className="kpi-stat-value">1</span>
-                                </div>
-                                <div className="kpi-stat-item">
-                                    <span className="kpi-stat-label">Waiting</span>
-                                    <span className="kpi-stat-value">2</span>
-                                </div>
-                                <div className="kpi-stat-item">
-                                    <span className="kpi-stat-label">Operations</span>
-                                    <span className="kpi-stat-value">6</span>
-                                </div>
+                        <div className="kpi-sidebar">
+                            <div className="stat-row">
+                                <span className="stat-label">Late</span>
+                                <span className="stat-value">1</span>
+                            </div>
+                            <div className="stat-row">
+                                <span className="stat-label">Waiting</span>
+                                <span className="stat-value">2</span>
+                            </div>
+                            <div className="stat-row">
+                                <span className="stat-label">Operations</span>
+                                <span className="stat-value">6</span>
                             </div>
                         </div>
                     </div>
