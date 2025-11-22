@@ -1,0 +1,997 @@
+{
+    "baseUrl": "http://localhost:5000/api",
+    "authentication": {
+        "type": "JWT Bearer Token",
+        "header": "Authorization: Bearer <token>",
+        "tokenStorage": "localStorage",
+        "tokenExpiry": "24 hours"
+    },
+    "endpoints": {
+        "authentication": {
+            "login": {
+                "method": "POST",
+                "path": "/auth/login",
+                "description": "User login with email and password",
+                "requiresAuth": false,
+                "request": {
+                    "email": "user@example.com",
+                    "password": "password123"
+                },
+                "response": {
+                    "success": true,
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                    "user": {
+                        "id": "user_123",
+                        "name": "John Doe",
+                        "email": "user@example.com",
+                        "role": "Inventory Manager",
+                        "permissions": [
+                            "manage_stock",
+                            "view_reports",
+                            "approve_transfers"
+                        ],
+                        "department": "Inventory Control",
+                        "isActive": true
+                    }
+                },
+                "errorResponse": {
+                    "success": false,
+                    "error": "Invalid email or password"
+                }
+            },
+            "signup": {
+                "method": "POST",
+                "path": "/auth/signup",
+                "description": "Register a new user",
+                "requiresAuth": false,
+                "request": {
+                    "name": "John Doe",
+                    "email": "user@example.com",
+                    "password": "password123",
+                    "role": "Warehouse Staff"
+                },
+                "response": {
+                    "success": true,
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                    "user": {
+                        "id": "user_123",
+                        "name": "John Doe",
+                        "email": "user@example.com",
+                        "role": "Warehouse Staff",
+                        "permissions": [
+                            "perform_transfers",
+                            "picking",
+                            "shelving",
+                            "counting"
+                        ],
+                        "isActive": true
+                    }
+                }
+            },
+            "requestPasswordReset": {
+                "method": "POST",
+                "path": "/auth/request-reset",
+                "description": "Request OTP for password reset",
+                "requiresAuth": false,
+                "request": {
+                    "email": "user@example.com"
+                },
+                "response": {
+                    "success": true,
+                    "message": "OTP sent to email"
+                }
+            },
+            "verifyOTP": {
+                "method": "POST",
+                "path": "/auth/verify-otp",
+                "description": "Verify OTP code",
+                "requiresAuth": false,
+                "request": {
+                    "email": "user@example.com",
+                    "otp": "123456"
+                },
+                "response": {
+                    "success": true,
+                    "message": "OTP verified"
+                }
+            },
+            "resetPassword": {
+                "method": "POST",
+                "path": "/auth/reset-password",
+                "description": "Reset password with verified OTP",
+                "requiresAuth": false,
+                "request": {
+                    "email": "user@example.com",
+                    "otp": "123456",
+                    "newPassword": "newpassword123"
+                },
+                "response": {
+                    "success": true,
+                    "message": "Password reset successful"
+                }
+            }
+        },
+        "users": {
+            "getAll": {
+                "method": "GET",
+                "path": "/users",
+                "description": "Get all users",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "count": 8,
+                    "data": [
+                        {
+                            "id": "user_1",
+                            "name": "Sarah Johnson",
+                            "email": "sarah.johnson@spitxudoo.com",
+                            "role": "Inventory Manager",
+                            "permissions": [
+                                "manage_stock",
+                                "view_reports",
+                                "approve_transfers"
+                            ],
+                            "department": "Inventory Control",
+                            "isActive": true,
+                            "createdAt": "2025-01-15T10:30:00Z",
+                            "updatedAt": "2025-01-15T10:30:00Z"
+                        }
+                    ]
+                }
+            },
+            "getById": {
+                "method": "GET",
+                "path": "/users/:id",
+                "description": "Get user by ID",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "user_1",
+                        "name": "Sarah Johnson",
+                        "email": "sarah.johnson@spitxudoo.com",
+                        "role": "Inventory Manager",
+                        "permissions": [
+                            "manage_stock",
+                            "view_reports"
+                        ],
+                        "department": "Inventory Control",
+                        "isActive": true
+                    }
+                }
+            },
+            "getByRole": {
+                "method": "GET",
+                "path": "/users/role/:role",
+                "description": "Get users by role",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "count": 3,
+                    "data": []
+                }
+            },
+            "getStats": {
+                "method": "GET",
+                "path": "/users/stats/summary",
+                "description": "Get user statistics",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "data": {
+                        "total": 8,
+                        "inventoryManagers": 3,
+                        "warehouseStaff": 5,
+                        "active": 8,
+                        "inactive": 0
+                    }
+                }
+            }
+        },
+        "products": {
+            "getAll": {
+                "method": "GET",
+                "path": "/products",
+                "description": "Get all products",
+                "requiresAuth": true,
+                "queryParams": {
+                    "category": "optional - filter by category",
+                    "search": "optional - search by name or SKU",
+                    "status": "optional - in_stock, low_stock, out_of_stock"
+                },
+                "response": {
+                    "success": true,
+                    "count": 5,
+                    "data": [
+                        {
+                            "id": "prod_1",
+                            "name": "Steel Rods",
+                            "sku": "STL-001",
+                            "category": "Raw Materials",
+                            "unitOfMeasure": "kg",
+                            "stockLevel": 150,
+                            "reorderPoint": 50,
+                            "status": "in_stock",
+                            "locations": [
+                                {
+                                    "warehouseId": "wh_1",
+                                    "warehouseName": "Main Warehouse",
+                                    "quantity": 100,
+                                    "rack": "A-12"
+                                },
+                                {
+                                    "warehouseId": "wh_2",
+                                    "warehouseName": "Warehouse 2",
+                                    "quantity": 50,
+                                    "rack": "B-05"
+                                }
+                            ],
+                            "createdAt": "2025-01-10T08:00:00Z",
+                            "updatedAt": "2025-01-20T14:30:00Z"
+                        }
+                    ]
+                }
+            },
+            "getById": {
+                "method": "GET",
+                "path": "/products/:id",
+                "description": "Get product by ID",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "prod_1",
+                        "name": "Steel Rods",
+                        "sku": "STL-001",
+                        "category": "Raw Materials",
+                        "unitOfMeasure": "kg",
+                        "stockLevel": 150,
+                        "reorderPoint": 50,
+                        "locations": []
+                    }
+                }
+            },
+            "create": {
+                "method": "POST",
+                "path": "/products",
+                "description": "Create a new product",
+                "requiresAuth": true,
+                "request": {
+                    "name": "Steel Rods",
+                    "sku": "STL-001",
+                    "category": "Raw Materials",
+                    "unitOfMeasure": "kg",
+                    "reorderPoint": 50,
+                    "initialStock": 100,
+                    "warehouseId": "wh_1"
+                },
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "prod_1",
+                        "name": "Steel Rods",
+                        "sku": "STL-001",
+                        "category": "Raw Materials",
+                        "stockLevel": 100,
+                        "createdAt": "2025-01-22T09:13:00Z"
+                    }
+                }
+            },
+            "update": {
+                "method": "PUT",
+                "path": "/products/:id",
+                "description": "Update a product",
+                "requiresAuth": true,
+                "request": {
+                    "name": "Steel Rods - Premium",
+                    "category": "Raw Materials",
+                    "reorderPoint": 75
+                },
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "prod_1",
+                        "name": "Steel Rods - Premium",
+                        "updatedAt": "2025-01-22T09:15:00Z"
+                    }
+                }
+            },
+            "delete": {
+                "method": "DELETE",
+                "path": "/products/:id",
+                "description": "Delete a product",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "message": "Product deleted successfully"
+                }
+            },
+            "getLowStock": {
+                "method": "GET",
+                "path": "/products/low-stock",
+                "description": "Get products with low stock",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "count": 2,
+                    "data": []
+                }
+            }
+        },
+        "warehouses": {
+            "getAll": {
+                "method": "GET",
+                "path": "/warehouses",
+                "description": "Get all warehouses",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "count": 2,
+                    "data": [
+                        {
+                            "id": "wh_1",
+                            "name": "Main Warehouse",
+                            "code": "WH-MAIN",
+                            "address": "123 Industrial Ave, City",
+                            "isActive": true,
+                            "createdAt": "2025-01-01T00:00:00Z"
+                        }
+                    ]
+                }
+            },
+            "getById": {
+                "method": "GET",
+                "path": "/warehouses/:id",
+                "description": "Get warehouse by ID",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "wh_1",
+                        "name": "Main Warehouse",
+                        "code": "WH-MAIN",
+                        "address": "123 Industrial Ave, City",
+                        "isActive": true
+                    }
+                }
+            },
+            "create": {
+                "method": "POST",
+                "path": "/warehouses",
+                "description": "Create a new warehouse",
+                "requiresAuth": true,
+                "request": {
+                    "name": "Warehouse 3",
+                    "code": "WH-03",
+                    "address": "456 Storage Rd, City"
+                },
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "wh_3",
+                        "name": "Warehouse 3",
+                        "code": "WH-03",
+                        "isActive": true
+                    }
+                }
+            },
+            "update": {
+                "method": "PUT",
+                "path": "/warehouses/:id",
+                "description": "Update a warehouse",
+                "requiresAuth": true,
+                "request": {
+                    "name": "Main Distribution Center",
+                    "address": "789 New Location St"
+                },
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "wh_1",
+                        "name": "Main Distribution Center"
+                    }
+                }
+            },
+            "delete": {
+                "method": "DELETE",
+                "path": "/warehouses/:id",
+                "description": "Delete a warehouse",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "message": "Warehouse deleted successfully"
+                }
+            }
+        },
+        "receipts": {
+            "getAll": {
+                "method": "GET",
+                "path": "/receipts",
+                "description": "Get all receipts",
+                "requiresAuth": true,
+                "queryParams": {
+                    "status": "optional - draft, waiting, ready, done, canceled"
+                },
+                "response": {
+                    "success": true,
+                    "count": 15,
+                    "data": [
+                        {
+                            "id": "rcp_1",
+                            "receiptNumber": "RCP-001",
+                            "supplier": "Steel Suppliers Inc",
+                            "status": "done",
+                            "items": [
+                                {
+                                    "productId": "prod_1",
+                                    "productName": "Steel Rods",
+                                    "quantity": 50,
+                                    "warehouseId": "wh_1"
+                                }
+                            ],
+                            "receivedDate": "2025-01-20T10:00:00Z",
+                            "createdAt": "2025-01-19T14:00:00Z",
+                            "createdBy": "user_1"
+                        }
+                    ]
+                }
+            },
+            "getById": {
+                "method": "GET",
+                "path": "/receipts/:id",
+                "description": "Get receipt by ID",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "rcp_1",
+                        "receiptNumber": "RCP-001",
+                        "supplier": "Steel Suppliers Inc",
+                        "status": "done",
+                        "items": []
+                    }
+                }
+            },
+            "create": {
+                "method": "POST",
+                "path": "/receipts",
+                "description": "Create a new receipt",
+                "requiresAuth": true,
+                "request": {
+                    "supplier": "Steel Suppliers Inc",
+                    "items": [
+                        {
+                            "productId": "prod_1",
+                            "quantity": 50,
+                            "warehouseId": "wh_1"
+                        }
+                    ]
+                },
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "rcp_2",
+                        "receiptNumber": "RCP-002",
+                        "status": "draft",
+                        "createdAt": "2025-01-22T09:20:00Z"
+                    }
+                }
+            },
+            "update": {
+                "method": "PUT",
+                "path": "/receipts/:id",
+                "description": "Update a receipt",
+                "requiresAuth": true,
+                "request": {
+                    "supplier": "Updated Supplier Name",
+                    "items": []
+                },
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "rcp_2",
+                        "updatedAt": "2025-01-22T09:25:00Z"
+                    }
+                }
+            },
+            "validate": {
+                "method": "POST",
+                "path": "/receipts/:id/validate",
+                "description": "Validate receipt and update stock",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "message": "Receipt validated, stock updated",
+                    "data": {
+                        "id": "rcp_2",
+                        "status": "done",
+                        "receivedDate": "2025-01-22T09:30:00Z"
+                    }
+                }
+            },
+            "cancel": {
+                "method": "POST",
+                "path": "/receipts/:id/cancel",
+                "description": "Cancel a receipt",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "message": "Receipt canceled",
+                    "data": {
+                        "id": "rcp_2",
+                        "status": "canceled"
+                    }
+                }
+            }
+        },
+        "deliveries": {
+            "getAll": {
+                "method": "GET",
+                "path": "/deliveries",
+                "description": "Get all delivery orders",
+                "requiresAuth": true,
+                "queryParams": {
+                    "status": "optional - draft, waiting, ready, done, canceled"
+                },
+                "response": {
+                    "success": true,
+                    "count": 8,
+                    "data": [
+                        {
+                            "id": "del_1",
+                            "orderNumber": "DEL-001",
+                            "customer": "ABC Manufacturing",
+                            "status": "done",
+                            "items": [
+                                {
+                                    "productId": "prod_3",
+                                    "productName": "Chairs",
+                                    "quantity": 10,
+                                    "warehouseId": "wh_1",
+                                    "picked": true,
+                                    "packed": true
+                                }
+                            ],
+                            "deliveryDate": "2025-01-21T15:00:00Z",
+                            "createdAt": "2025-01-20T09:00:00Z",
+                            "createdBy": "user_2"
+                        }
+                    ]
+                }
+            },
+            "getById": {
+                "method": "GET",
+                "path": "/deliveries/:id",
+                "description": "Get delivery by ID",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "del_1",
+                        "orderNumber": "DEL-001",
+                        "customer": "ABC Manufacturing",
+                        "status": "done",
+                        "items": []
+                    }
+                }
+            },
+            "create": {
+                "method": "POST",
+                "path": "/deliveries",
+                "description": "Create a new delivery order",
+                "requiresAuth": true,
+                "request": {
+                    "customer": "XYZ Corp",
+                    "items": [
+                        {
+                            "productId": "prod_3",
+                            "quantity": 5,
+                            "warehouseId": "wh_1"
+                        }
+                    ]
+                },
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "del_2",
+                        "orderNumber": "DEL-002",
+                        "status": "draft",
+                        "createdAt": "2025-01-22T09:35:00Z"
+                    }
+                }
+            },
+            "update": {
+                "method": "PUT",
+                "path": "/deliveries/:id",
+                "description": "Update a delivery order",
+                "requiresAuth": true,
+                "request": {
+                    "customer": "Updated Customer",
+                    "items": []
+                },
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "del_2",
+                        "updatedAt": "2025-01-22T09:40:00Z"
+                    }
+                }
+            },
+            "pick": {
+                "method": "POST",
+                "path": "/deliveries/:id/pick",
+                "description": "Mark items as picked",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "message": "Items picked",
+                    "data": {
+                        "id": "del_2",
+                        "status": "waiting"
+                    }
+                }
+            },
+            "pack": {
+                "method": "POST",
+                "path": "/deliveries/:id/pack",
+                "description": "Mark items as packed",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "message": "Items packed",
+                    "data": {
+                        "id": "del_2",
+                        "status": "ready"
+                    }
+                }
+            },
+            "validate": {
+                "method": "POST",
+                "path": "/deliveries/:id/validate",
+                "description": "Validate delivery and reduce stock",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "message": "Delivery validated, stock reduced",
+                    "data": {
+                        "id": "del_2",
+                        "status": "done",
+                        "deliveryDate": "2025-01-22T09:45:00Z"
+                    }
+                }
+            },
+            "cancel": {
+                "method": "POST",
+                "path": "/deliveries/:id/cancel",
+                "description": "Cancel a delivery",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "message": "Delivery canceled",
+                    "data": {
+                        "id": "del_2",
+                        "status": "canceled"
+                    }
+                }
+            }
+        },
+        "transfers": {
+            "getAll": {
+                "method": "GET",
+                "path": "/transfers",
+                "description": "Get all internal transfers",
+                "requiresAuth": true,
+                "queryParams": {
+                    "status": "optional - draft, waiting, ready, done, canceled"
+                },
+                "response": {
+                    "success": true,
+                    "count": 12,
+                    "data": [
+                        {
+                            "id": "trf_1",
+                            "transferNumber": "TRF-001",
+                            "sourceWarehouse": "Main Warehouse",
+                            "destinationWarehouse": "Warehouse 2",
+                            "status": "done",
+                            "items": [
+                                {
+                                    "productId": "prod_5",
+                                    "productName": "Screws",
+                                    "quantity": 200
+                                }
+                            ],
+                            "transferDate": "2025-01-21T11:00:00Z",
+                            "createdAt": "2025-01-20T16:00:00Z",
+                            "createdBy": "user_3"
+                        }
+                    ]
+                }
+            },
+            "getById": {
+                "method": "GET",
+                "path": "/transfers/:id",
+                "description": "Get transfer by ID",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "trf_1",
+                        "transferNumber": "TRF-001",
+                        "sourceWarehouse": "Main Warehouse",
+                        "destinationWarehouse": "Warehouse 2",
+                        "status": "done",
+                        "items": []
+                    }
+                }
+            },
+            "create": {
+                "method": "POST",
+                "path": "/transfers",
+                "description": "Create a new internal transfer",
+                "requiresAuth": true,
+                "request": {
+                    "sourceWarehouseId": "wh_1",
+                    "destinationWarehouseId": "wh_2",
+                    "items": [
+                        {
+                            "productId": "prod_5",
+                            "quantity": 100
+                        }
+                    ]
+                },
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "trf_2",
+                        "transferNumber": "TRF-002",
+                        "status": "draft",
+                        "createdAt": "2025-01-22T09:50:00Z"
+                    }
+                }
+            },
+            "update": {
+                "method": "PUT",
+                "path": "/transfers/:id",
+                "description": "Update a transfer",
+                "requiresAuth": true,
+                "request": {
+                    "items": []
+                },
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "trf_2",
+                        "updatedAt": "2025-01-22T09:55:00Z"
+                    }
+                }
+            },
+            "validate": {
+                "method": "POST",
+                "path": "/transfers/:id/validate",
+                "description": "Validate transfer and update stock locations",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "message": "Transfer validated, stock locations updated",
+                    "data": {
+                        "id": "trf_2",
+                        "status": "done",
+                        "transferDate": "2025-01-22T10:00:00Z"
+                    }
+                }
+            },
+            "cancel": {
+                "method": "POST",
+                "path": "/transfers/:id/cancel",
+                "description": "Cancel a transfer",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "message": "Transfer canceled",
+                    "data": {
+                        "id": "trf_2",
+                        "status": "canceled"
+                    }
+                }
+            }
+        },
+        "adjustments": {
+            "getAll": {
+                "method": "GET",
+                "path": "/adjustments",
+                "description": "Get all inventory adjustments",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "count": 4,
+                    "data": [
+                        {
+                            "id": "adj_1",
+                            "adjustmentNumber": "ADJ-001",
+                            "productId": "prod_1",
+                            "productName": "Steel Rods",
+                            "warehouseId": "wh_1",
+                            "warehouseName": "Main Warehouse",
+                            "recordedQuantity": 150,
+                            "countedQuantity": 147,
+                            "difference": -3,
+                            "reason": "Damaged items",
+                            "createdAt": "2025-01-21T13:00:00Z",
+                            "createdBy": "user_1"
+                        }
+                    ]
+                }
+            },
+            "getById": {
+                "method": "GET",
+                "path": "/adjustments/:id",
+                "description": "Get adjustment by ID",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "data": {
+                        "id": "adj_1",
+                        "adjustmentNumber": "ADJ-001",
+                        "productId": "prod_1",
+                        "productName": "Steel Rods",
+                        "difference": -3
+                    }
+                }
+            },
+            "create": {
+                "method": "POST",
+                "path": "/adjustments",
+                "description": "Create inventory adjustment (auto-updates stock)",
+                "requiresAuth": true,
+                "request": {
+                    "productId": "prod_1",
+                    "warehouseId": "wh_1",
+                    "countedQuantity": 147,
+                    "reason": "Physical count discrepancy"
+                },
+                "response": {
+                    "success": true,
+                    "message": "Adjustment created, stock updated",
+                    "data": {
+                        "id": "adj_2",
+                        "adjustmentNumber": "ADJ-002",
+                        "recordedQuantity": 150,
+                        "countedQuantity": 147,
+                        "difference": -3,
+                        "createdAt": "2025-01-22T10:05:00Z"
+                    }
+                }
+            }
+        },
+        "movements": {
+            "getAll": {
+                "method": "GET",
+                "path": "/movements",
+                "description": "Get stock movement history (ledger)",
+                "requiresAuth": true,
+                "queryParams": {
+                    "productId": "optional - filter by product",
+                    "warehouseId": "optional - filter by warehouse",
+                    "type": "optional - receipt, delivery, transfer, adjustment",
+                    "dateFrom": "optional - ISO date",
+                    "dateTo": "optional - ISO date"
+                },
+                "response": {
+                    "success": true,
+                    "count": 50,
+                    "data": [
+                        {
+                            "id": "mov_1",
+                            "productId": "prod_1",
+                            "productName": "Steel Rods",
+                            "type": "receipt",
+                            "quantity": 50,
+                            "warehouseId": "wh_1",
+                            "warehouseName": "Main Warehouse",
+                            "referenceNumber": "RCP-001",
+                            "createdAt": "2025-01-20T10:00:00Z",
+                            "createdBy": "user_1"
+                        },
+                        {
+                            "id": "mov_2",
+                            "productId": "prod_3",
+                            "productName": "Chairs",
+                            "type": "delivery",
+                            "quantity": -10,
+                            "warehouseId": "wh_1",
+                            "warehouseName": "Main Warehouse",
+                            "referenceNumber": "DEL-001",
+                            "createdAt": "2025-01-21T15:00:00Z",
+                            "createdBy": "user_2"
+                        }
+                    ]
+                }
+            },
+            "getByProduct": {
+                "method": "GET",
+                "path": "/movements/product/:productId",
+                "description": "Get movement history for a specific product",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "count": 10,
+                    "data": []
+                }
+            }
+        },
+        "dashboard": {
+            "getKPIs": {
+                "method": "GET",
+                "path": "/dashboard/kpis",
+                "description": "Get dashboard KPI metrics",
+                "requiresAuth": true,
+                "response": {
+                    "success": true,
+                    "data": {
+                        "totalProducts": 1247,
+                        "lowStockItems": 23,
+                        "outOfStockItems": 5,
+                        "pendingReceipts": 15,
+                        "pendingDeliveries": 8,
+                        "scheduledTransfers": 12
+                    }
+                }
+            },
+            "getRecentActivity": {
+                "method": "GET",
+                "path": "/dashboard/recent-activity",
+                "description": "Get recent activity feed",
+                "requiresAuth": true,
+                "queryParams": {
+                    "limit": "optional - default 10"
+                },
+                "response": {
+                    "success": true,
+                    "count": 10,
+                    "data": [
+                        {
+                            "id": "activity_1",
+                            "type": "receipt",
+                            "referenceNumber": "RCP-001",
+                            "productName": "Steel Rods",
+                            "quantity": 50,
+                            "timestamp": "2025-01-22T08:00:00Z",
+                            "userName": "Sarah Johnson"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "errorResponses": {
+        "400": {
+            "success": false,
+            "error": "Bad Request - Invalid input data"
+        },
+        "401": {
+            "success": false,
+            "error": "Unauthorized - Invalid or missing token"
+        },
+        "403": {
+            "success": false,
+            "error": "Forbidden - Insufficient permissions"
+        },
+        "404": {
+            "success": false,
+            "error": "Not Found - Resource does not exist"
+        },
+        "500": {
+            "success": false,
+            "error": "Internal Server Error"
+        }
+    },
+    "notes": {
+        "dateFormat": "All dates should be in ISO 8601 format (YYYY-MM-DDTHH:mm:ssZ)",
+        "pagination": "For endpoints returning lists, consider adding pagination with 'page' and 'limit' query params",
+        "validation": "All POST/PUT requests should validate required fields and data types",
+        "stockUpdates": "Receipt validation increases stock, Delivery validation decreases stock, Transfers move stock between warehouses, Adjustments correct stock based on physical count",
+        "permissions": "Check user permissions before allowing operations (e.g., only Inventory Managers can approve transfers)",
+        "statusFlow": "Document status flow: draft → waiting → ready → done (or canceled at any point)"
+    }
+}
