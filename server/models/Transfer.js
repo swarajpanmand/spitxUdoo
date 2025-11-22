@@ -6,8 +6,9 @@ const TransferItem = new mongoose.Schema({
 }, { _id: false });
 
 const TransferSchema = new mongoose.Schema({
-  warehouseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Warehouse' },
-  fromLocation: { type: mongoose.Schema.Types.ObjectId },
+  sourceWarehouseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Warehouse', required: true },
+  destinationWarehouseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Warehouse', required: true },
+  fromLocation: { type: mongoose.Schema.Types.ObjectId }, // Optional specific rack in source
   toLocation: { type: mongoose.Schema.Types.ObjectId },
   reason: String,
   status: { type: String, enum: ['DRAFT', 'READY', 'DONE', 'CANCELED'], default: 'DRAFT' },

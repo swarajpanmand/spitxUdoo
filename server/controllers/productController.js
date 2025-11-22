@@ -3,7 +3,6 @@ import * as productService from "../services/productService.js";
 
 export const createProduct = async (req, res, next) => {
   try {
-    if (error) return res.status(400).json({ success: false, error: error.details[0].message });
 
     const product = await productService.createProduct(value);
     return res.status(201).json({ success: true, product });
@@ -52,7 +51,6 @@ export const getProduct = async (req, res, next) => {
 
 export const updateProduct = async (req, res, next) => {
   try {
-    if (error) return res.status(400).json({ success: false, error: error.details[0].message });
     const product = await productService.updateProduct(req.params.id, req.body);
     res.json({ success: true, product });
   } catch (err) {
@@ -72,7 +70,6 @@ export const deleteProduct = async (req, res, next) => {
 // stock endpoints
 export const addStock = async (req, res, next) => {
   try {
-    if (error) return res.status(400).json({ success: false, error: error.details[0].message });
 
     const { productId, warehouseId, locationId, qty, referenceId } = value;
     const result = await productService.addStock({ productId, warehouseId, locationId, qty, referenceId, userId: req.user?._id });
@@ -84,7 +81,6 @@ export const addStock = async (req, res, next) => {
 
 export const removeStock = async (req, res, next) => {
   try {
-    if (error) return res.status(400).json({ success: false, error: error.details[0].message });
     const { productId, warehouseId, locationId, qty, referenceId } = value;
     const result = await productService.removeStock({ productId, warehouseId, locationId, qty, referenceId, userId: req.user?._id });
     res.json({ success: true, message: "Stock reduced", ledger: result.ledger, product: result.product });
@@ -95,7 +91,6 @@ export const removeStock = async (req, res, next) => {
 
 export const transferStock = async (req, res, next) => {
   try {
-    if (error) return res.status(400).json({ success: false, error: error.details[0].message });
     const results = await productService.transferStock({ items: value.items, userId: req.user?._id, referenceId: value.referenceId });
     res.json({ success: true, message: "Transfer processed", results });
   } catch (err) {
@@ -105,7 +100,6 @@ export const transferStock = async (req, res, next) => {
 
 export const upsertBatch = async (req, res, next) => {
   try {
-    if (error) return res.status(400).json({ success: false, error: error.details[0].message });
     const product = await productService.upsertBatch(value);
     res.json({ success: true, product });
   } catch (err) {

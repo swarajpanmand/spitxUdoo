@@ -57,9 +57,10 @@ export const updateTransferStatus = async (req, res, next) => {
       const items = transfer.items.map((it) => ({
         productId: it.productId,
         qty: Number(it.qty),
-        fromWarehouseId: transfer.warehouseId,
+        // Use different source/dest warehouses
+        fromWarehouseId: transfer.sourceWarehouseId, 
         fromLocationId: transfer.fromLocation,
-        toWarehouseId: transfer.warehouseId,
+        toWarehouseId: transfer.destinationWarehouseId,
         toLocationId: transfer.toLocation,
       }));
 
