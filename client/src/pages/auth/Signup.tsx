@@ -59,6 +59,15 @@ export const Signup: React.FC = () => {
 
     return (
         <div className="auth-container">
+              <video
+            className="auth-video-bg"
+            autoPlay
+            loop
+            muted
+            playsInline
+        >
+            <source src="/src/assets/hero.mp4" type="video/mp4" />
+        </video>
             <div className="auth-background"></div>
             <div className="auth-card glass animate-fade-in">
                 <div className="auth-header">
