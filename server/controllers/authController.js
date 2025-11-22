@@ -11,8 +11,8 @@ const generateOTP = () => {
 
 const signToken = (user) => {
   return jwt.sign(
-    { id: user._id, role: user.role },
-    process.env.JWT_SECRET,
+    { id: user._id, role: user.role }, 
+    process.env.JWT_SECRET, 
     { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
   );
 };
@@ -20,6 +20,7 @@ const signToken = (user) => {
 export const signup = async (req, res, next) => {
   try {
     const { name, email, password, role, assignedWarehouseIds } = req.body;
+    // console.log(name , email, password, role, assignedWarehouseIds);
 
     // normal validation
     if (!name || !email || !password || !role) {
@@ -29,7 +30,7 @@ export const signup = async (req, res, next) => {
       });
     }
 
-    if (!ALLOWED_ROLES.includes(role)) {
+    if(!ALLOWED_ROLES.includes(role)) {
       return res.status(400).json({
         success: false,
         error: "Invalid role",
@@ -38,7 +39,7 @@ export const signup = async (req, res, next) => {
 
     // Check unique mail
     const exists = await User.findOne({ email });
-    if (exists) {
+    if(exists) {
       return res.status(400).json({
         success: false,
         error: "Email already exists",
@@ -52,31 +53,15 @@ export const signup = async (req, res, next) => {
       role,
       assignedWarehouseIds
     };
-
-    if (role === "manager" || role === "warehouse") {
+    
+    if(role === "manager" || role === "warehouse") {
       payload.assignedWarehouseIds = assignedWarehouseIds || [];
     }
 
     // 1. Create user
     const user = await User.create(payload);
 
-    // Skip email verification if in development or email not configured
-    const skipEmail = process.env.NODE_ENV === 'development' ||
-      !process.env.EMAIL_USER ||
-      !process.env.EMAIL_PASS;
-
-    if (skipEmail) {
-      user.isEmailVerified = true;
-      await user.save();
-
-      return res.json({
-        success: true,
-        message: "Signup successful. You can now login.",
-        userId: user._id
-      });
-    }
-
-    // 2. Generate OTP for email verification (production only with email configured)
+    // 2. Generate OTP for email verification
     const otp = generateOTP();
     const hashedOTP = crypto.createHash("sha256").update(otp).digest("hex");
 
@@ -85,32 +70,20 @@ export const signup = async (req, res, next) => {
     await user.save();
 
     // 3. Send Email
-    try {
-      await sendEmail({
-        to: email,
-        subject: "Verify your StockMaster email",
-        html: `<h3>Your verification OTP:</h3>
-              <h2>${otp}</h2>
-              <p>Expires in 10 minutes.</p>`
-      });
+    await sendEmail({
+      to: email,
+      subject: "Verify your StockMaster email",
+      html: `<h3>Your verification OTP:</h3>
+            <h2>${otp}</h2>
+            <p>Expires in 10 minutes.</p>`
+    });
 
-      // 4. Response (no login yet)
-      return res.json({
-        success: true,
-        message: "Signup successful. Please verify your email.",
-        userId: user._id
-      });
-    } catch (emailError) {
-      console.error('Email sending failed:', emailError);
-      // Auto-verify if email fails
-      user.isEmailVerified = true;
-      await user.save();
-      return res.json({
-        success: true,
-        message: "Signup successful. Email verification skipped.",
-        userId: user._id
-      });
-    }
+    // 4. Response (no login yet)
+    return res.json({
+      success: true,
+      message: "Signup successful. Please verify your email.",
+      userId: user._id
+    });
 
   }
   catch (err) {

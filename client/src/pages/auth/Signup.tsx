@@ -48,7 +48,8 @@ export const Signup: React.FC = () => {
         setLoading(true);
         try {
             await signup(formData.name, formData.email, formData.password, formData.role);
-            navigate('/dashboard');
+            // Redirect to email verification page
+            navigate(`/verify-email?email=${encodeURIComponent(formData.email)}`);
         } catch (err) {
             setError('Failed to create account. Please try again.');
         } finally {

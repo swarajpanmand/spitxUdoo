@@ -28,15 +28,23 @@ export const PasswordReset: React.FC = () => {
 
         setLoading(true);
         try {
-            // TODO: Replace with actual API call
-            // await authAPI.requestPasswordReset(email);
+            const response = await fetch('http://localhost:5002/api/auth/request-reset', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            });
 
-            // Mock success
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to send OTP');
+            }
+
             setMessage('OTP sent to your email');
-            setStep('otp');
-        } catch (err) {
-            setError('Failed to send OTP. Please try again.');
+            // Redirect to reset-otp page
+            setTimeout(() => navigate(`/reset-otp?email=${email}`), 1500);
+        } catch (err: any) {
+            setError(err.message || 'Failed to send OTP. Please try again.');
         } finally {
             setLoading(false);
         }

@@ -4,6 +4,9 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { Login } from './pages/auth/Login';
 import { Signup } from './pages/auth/Signup';
 import { PasswordReset } from './pages/auth/PasswordReset';
+import { EmailVerification } from './pages/auth/EmailVerification';
+import { ResetOTP } from './pages/auth/ResetOTP';
+import { NewPassword } from './pages/auth/NewPassword';
 import { Dashboard } from './pages/Dashboard';
 import { Operations } from './pages/Operations';
 import { Stock } from './pages/Stock';
@@ -22,6 +25,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<PasswordReset />} />
+          <Route path="/verify-email" element={<EmailVerification />} />
+          <Route path="/reset-otp" element={<ResetOTP />} />
+          <Route path="/reset-password" element={<NewPassword />} />
 
           {/* Protected Routes */}
           <Route
