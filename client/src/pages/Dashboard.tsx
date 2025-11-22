@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MainLayout } from '../components/layout/MainLayout';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -8,6 +8,26 @@ import {
 } from 'lucide-react';
 import './Dashboard.css';
 
+interface KPIData {
+    totalProductsInStock: number;
+    totalStockUnits: number;
+    lowStockCount: number;
+    outOfStockCount: number;
+    pendingReceiptsCount: number;
+    pendingDeliveriesCount: number;
+    internalTransfersScheduledCount: number;
+}
+
+interface ActivityItem {
+    id: string;
+    type: string;
+    referenceNumber: string | null;
+    productName: string | null;
+    quantity: number;
+    timestamp: string;
+    userName: string | null;
+}
+
 export const Dashboard: React.FC = () => {
     const navigate = useNavigate();
     const [filters, setFilters] = useState({
@@ -16,13 +36,90 @@ export const Dashboard: React.FC = () => {
         warehouse: 'all',
         category: 'all',
     });
+    const [kpis, setKpis] = useState<KPIData>({
+        totalProductsInStock: 0,
+        totalStockUnits: 0,
+        lowStockCount: 0,
+        outOfStockCount: 0,
+        pendingReceiptsCount: 0,
+        pendingDeliveriesCount: 0,
+        internalTransfersScheduledCount: 0,
+    });
+    const [recentActivity, setRecentActivity] = useState<ActivityItem[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const recentActivity = [
-        { id: 1, type: 'Receipt', ref: 'RCP-001', product: 'Steel Rods', qty: 50, time: '2 hours ago' },
-        { id: 2, type: 'Delivery', ref: 'DEL-045', product: 'Chairs', qty: 10, time: '3 hours ago' },
-        { id: 3, type: 'Transfer', ref: 'TRF-023', product: 'Bolts', qty: 200, time: '5 hours ago' },
-        { id: 4, type: 'Adjustment', ref: 'ADJ-012', product: 'Steel', qty: -3, time: '6 hours ago' },
-    ];
+    useEffect(() => {
+        fetchDashboardData();
+    }, [filters.warehouse, filters.category]);
+
+    const fetchDashboardData = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                navigate('/login');
+                return;
+            }
+
+            // Build query params
+            const params = new URLSearchParams();
+            if (filters.warehouse !== 'all') params.append('warehouseId', filters.warehouse);
+            if (filters.category !== 'all') params.append('categoryId', filters.category);
+
+            // Fetch KPIs
+            const kpisResponse = await fetch(`http://localhost:5002/api/dashboard/kpis?${params}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!kpisResponse.ok) {
+                if (kpisResponse.status === 401) {
+                    navigate('/login');
+                    return;
+                }
+                throw new Error('Failed to fetch KPIs');
+            }
+
+            const kpisData = await kpisResponse.json();
+            setKpis(kpisData.data);
+
+            // Fetch recent activity
+            const activityParams = new URLSearchParams();
+            if (filters.warehouse !== 'all') activityParams.append('warehouseId', filters.warehouse);
+            activityParams.append('limit', '10');
+
+            const activityResponse = await fetch(`http://localhost:5002/api/dashboard/recent-activity?${activityParams}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (activityResponse.ok) {
+                const activityData = await activityResponse.json();
+                setRecentActivity(activityData.data);
+            }
+
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching dashboard data:', error);
+            setLoading(false);
+        }
+    };
+
+    const formatTimeAgo = (timestamp: string) => {
+        const now = new Date();
+        const then = new Date(timestamp);
+        const diffMs = now.getTime() - then.getTime();
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMins / 60);
+        const diffDays = Math.floor(diffHours / 24);
+
+        if (diffMins < 60) return `${diffMins} min${diffMins !== 1 ? 's' : ''} ago`;
+        if (diffHours < 24) return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+        return `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+    };
 
     return (
         <MainLayout title="Dashboard">
@@ -42,19 +139,19 @@ export const Dashboard: React.FC = () => {
                                 <h3 className="kpi-title">Receipts</h3>
                             </div>
                             <div className="kpi-metric-container">
-                                <span className="kpi-value-large">4</span>
+                                <span className="kpi-value-large">{loading ? '...' : kpis.pendingReceiptsCount}</span>
                                 <span className="kpi-label-large">To Receive</span>
                             </div>
                             <ClipboardList className="kpi-bg-icon" />
                         </div>
                         <div className="kpi-sidebar">
                             <div className="stat-row">
-                                <span className="stat-label">Late</span>
-                                <span className="stat-value">1</span>
+                                <span className="stat-label">Products</span>
+                                <span className="stat-value">{loading ? '...' : kpis.totalProductsInStock}</span>
                             </div>
                             <div className="stat-row">
-                                <span className="stat-label">Operations</span>
-                                <span className="stat-value">6</span>
+                                <span className="stat-label">Low Stock</span>
+                                <span className="stat-value">{loading ? '...' : kpis.lowStockCount}</span>
                             </div>
                         </div>
                     </div>
@@ -72,23 +169,23 @@ export const Dashboard: React.FC = () => {
                                 <h3 className="kpi-title">Delivery</h3>
                             </div>
                             <div className="kpi-metric-container">
-                                <span className="kpi-value-large">4</span>
+                                <span className="kpi-value-large">{loading ? '...' : kpis.pendingDeliveriesCount}</span>
                                 <span className="kpi-label-large">To Deliver</span>
                             </div>
                             <Truck className="kpi-bg-icon" />
                         </div>
                         <div className="kpi-sidebar">
                             <div className="stat-row">
-                                <span className="stat-label">Late</span>
-                                <span className="stat-value">1</span>
+                                <span className="stat-label">Transfers</span>
+                                <span className="stat-value">{loading ? '...' : kpis.internalTransfersScheduledCount}</span>
                             </div>
                             <div className="stat-row">
-                                <span className="stat-label">Waiting</span>
-                                <span className="stat-value">2</span>
+                                <span className="stat-label">Out of Stock</span>
+                                <span className="stat-value">{loading ? '...' : kpis.outOfStockCount}</span>
                             </div>
                             <div className="stat-row">
-                                <span className="stat-label">Operations</span>
-                                <span className="stat-value">6</span>
+                                <span className="stat-label">Total Units</span>
+                                <span className="stat-value">{loading ? '...' : kpis.totalStockUnits}</span>
                             </div>
                         </div>
                     </div>
@@ -103,20 +200,27 @@ export const Dashboard: React.FC = () => {
                             <button className="btn-link">View All</button>
                         </div>
                         <div className="activity-list">
-                            {recentActivity.map((activity) => (
-                                <div key={activity.id} className="activity-item">
-                                    <div className="activity-badge">{activity.type.charAt(0)}</div>
-                                    <div className="activity-details">
-                                        <div className="activity-header">
-                                            <span className="activity-ref">{activity.ref}</span>
-                                            <span className="activity-time">{activity.time}</span>
+                            {loading ? (
+                                <p style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>Loading...</p>
+                            ) : recentActivity.length === 0 ? (
+                                <p style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-secondary)' }}>No recent activity</p>
+                            ) : (
+                                recentActivity.map((activity) => (
+                                    <div key={activity.id} className="activity-item">
+                                        <div className="activity-badge">{activity.type.charAt(0).toUpperCase()}</div>
+                                        <div className="activity-details">
+                                            <div className="activity-header">
+                                                <span className="activity-ref">{activity.referenceNumber || 'N/A'}</span>
+                                                <span className="activity-time">{formatTimeAgo(activity.timestamp)}</span>
+                                            </div>
+                                            <p className="activity-description">
+                                                {activity.type}: {activity.productName || 'Unknown'} ({activity.quantity > 0 ? '+' : ''}{activity.quantity} units)
+                                                {activity.userName && <span style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}> by {activity.userName}</span>}
+                                            </p>
                                         </div>
-                                        <p className="activity-description">
-                                            {activity.type}: {activity.product} ({activity.qty > 0 ? '+' : ''}{activity.qty} units)
-                                        </p>
                                     </div>
-                                </div>
-                            ))}
+                                ))
+                            )}
                         </div>
                     </div>
 
