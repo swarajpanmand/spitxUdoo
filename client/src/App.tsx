@@ -1,13 +1,18 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { Login } from './pages/auth/Login';
-import { Signup } from './pages/auth/Signup';
-import { PasswordReset } from './pages/auth/PasswordReset';
-import { Dashboard } from './pages/Dashboard';
-import { Operations } from './pages/Operations';
-import { Stock } from './pages/Stock';
-import './styles/global.css';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Login } from "./pages/auth/Login";
+import { Signup } from "./pages/auth/Signup";
+import { PasswordReset } from "./pages/auth/PasswordReset";
+import { Dashboard } from "./pages/Dashboard";
+import { Operations } from "./pages/Operations";
+import { Stock } from "./pages/Stock";
+import { Receipt } from "./pages/Receipt";
+import { Delivery } from "./pages/Delivery";
+import { Adjustment } from "./pages/Adjustment";
+import { Warehouse } from "./pages/Warehouse";
+import { Location } from "./pages/Location";
+import "./styles/global.css";
 
 function App() {
   return (
@@ -48,9 +53,53 @@ function App() {
             path="/history"
             element={
               <ProtectedRoute>
-                <div style={{ padding: '2rem' }}>
+                <div style={{ padding: "2rem" }}>
                   <h1>Move History - Coming Soon</h1>
                 </div>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Operations Routes */}
+          <Route
+            path="/operations/receipt"
+            element={
+              <ProtectedRoute>
+                <Receipt />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/operations/delivery"
+            element={
+              <ProtectedRoute>
+                <Delivery />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/operations/adjustment"
+            element={
+              <ProtectedRoute>
+                <Adjustment />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Settings Routes */}
+          <Route
+            path="/settings/warehouse"
+            element={
+              <ProtectedRoute>
+                <Warehouse />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings/location"
+            element={
+              <ProtectedRoute>
+                <Location />
               </ProtectedRoute>
             }
           />
@@ -58,7 +107,7 @@ function App() {
             path="/settings"
             element={
               <ProtectedRoute>
-                <div style={{ padding: '2rem' }}>
+                <div style={{ padding: "2rem" }}>
                   <h1>Settings - Coming Soon</h1>
                 </div>
               </ProtectedRoute>
