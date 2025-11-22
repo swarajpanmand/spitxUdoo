@@ -1,72 +1,79 @@
 :root {
-    /* Premium Pastel Palette - Inspired by Flight Dashboard */
+    /* Premium Palette - Inspired by Flight Dashboard */
 
-    /* Teal Shades */
-    --teal-50: #e6f4f4;
-    --teal-100: #b3e0e0;
-    --teal-200: #80cccc;
-    --teal-300: #4db8b8;
-    --teal-400: #1aa4a4;
-    --teal-500: #4a7c7c;
-    --teal-600: #3d6565;
-    --teal-700: #2f4e4e;
-    --teal-800: #223737;
-    --teal-900: #152020;
+    /* Dark Teal/Green Shades (Sidebar & Primary) */
+    --teal-50: #e8f0f0;
+    --teal-100: #c5d9d9;
+    --teal-200: #9ec0c0;
+    --teal-300: #77a7a7;
+    --teal-400: #5a9494;
+    --teal-500: #4a6464;
+    /* Main dark teal - darker than before */
+    --teal-600: #3d5555;
+    /* Sidebar background */
+    --teal-700: #2f4444;
+    --teal-800: #223333;
+    --teal-900: #152222;
 
-    /* Olive Green Shades */
-    --olive-50: #f4f5ed;
-    --olive-100: #e3e7cc;
-    --olive-200: #d2d9ab;
-    --olive-300: #c1cb8a;
-    --olive-400: #b0bd69;
-    --olive-500: #8a9456;
-    --olive-600: #6d7645;
-    --olive-700: #515833;
-    --olive-800: #343a22;
-    --olive-900: #1a1d11;
+    /* Olive/Teal Mix Shades */
+    --olive-50: #f0f2ed;
+    --olive-100: #dae0cc;
+    --olive-200: #c2cdab;
+    --olive-300: #aaba8a;
+    --olive-400: #97ac70;
+    --olive-500: #7a8f56;
+    --olive-600: #6d7f4f;
+    --olive-700: #5d6c45;
+    --olive-800: #4e5a3b;
+    --olive-900: #323b29;
 
-    /* Mustard Yellow Shades */
+    /* Mustard Yellow Shades (Accent) */
     --mustard-50: #fef9e6;
-    --mustard-100: #fceeb3;
-    --mustard-200: #fae380;
-    --mustard-300: #f8d84d;
-    --mustard-400: #f6cd1a;
-    --mustard-500: #d4a817;
-    --mustard-600: #a68312;
-    --mustard-700: #785e0d;
-    --mustard-800: #4a3908;
-    --mustard-900: #1c1403;
+    --mustard-100: #fdf0c2;
+    --mustard-200: #fbe699;
+    --mustard-300: #f9dc70;
+    --mustard-400: #f8d452;
+    --mustard-500: #c9a236;
+    /* Main mustard - richer tone */
+    --mustard-600: #b38f2e;
+    --mustard-700: #9a7a25;
+    --mustard-800: #80651d;
+    --mustard-900: #5c4a10;
 
-    /* Neutral Pastels */
+    /* Neutral Cream/Beige */
     --cream-50: #fdfcfa;
     --cream-100: #f9f7f3;
-    --cream-200: #f5f2ec;
-    --cream-300: #f1ede5;
-    --cream-400: #ede8de;
-    --cream-500: #d9d4ca;
-    --cream-600: #c5c0b6;
-    --cream-700: #b1aca2;
-    --cream-800: #9d988e;
-    --cream-900: #89847a;
+    --cream-200: #e8e5dc;
+    /* Main background - lighter */
+    --cream-300: #ddd9cf;
+    --cream-400: #d2cdc2;
+    --cream-500: #c7c1b5;
+    --cream-600: #b5afa3;
+    --cream-700: #a39d91;
+    --cream-800: #918b7f;
+    --cream-900: #7f796d;
 
     /* Semantic Colors */
-    --background: #f5f2ec;
+    --background: #e8e5dc;
+    /* Light cream background */
     --surface: #ffffff;
-    --text-primary: #2f4e4e;
-    --text-secondary: #6d7645;
-    --border: #d9d4ca;
-    --shadow: rgba(47, 78, 78, 0.08);
+    --text-primary: #2f4444;
+    /* Darker teal for text */
+    --text-secondary: #5d6c45;
+    /* Olive for secondary text */
+    --border: #d2cdc2;
+    --shadow: rgba(61, 85, 85, 0.12);
 
 
-    /* Success - Olive Green */
-    --success-50: #f4f5ed;
-    --success-500: #8a9456;
-    --success-700: #515833;
+    /* Success - Teal/Green */
+    --success-50: #e8f0f0;
+    --success-500: #4a6464;
+    --success-700: #2f4444;
 
     /* Warning - Mustard Yellow */
     --warning-50: #fef9e6;
-    --warning-500: #f6cd1a;
-    --warning-700: #785e0d;
+    --warning-500: #c9a236;
+    --warning-700: #80651d;
 
     /* Error - Muted Red */
     --error-50: #fef2f2;
@@ -263,7 +270,6 @@ a:hover {
 
 /* Card */
 .card {
-    background: var(--background);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);

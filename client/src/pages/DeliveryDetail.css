@@ -1,0 +1,16 @@
+.row-out-of-stock td {
+    color: #ef4444 !important;
+    /* Softer red text */
+    background-color: transparent !important;
+    /* Removed background for cleaner look */
+}
+
+.stock-alert {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    color: #ef4444;
+    background: #fef2f2;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+}

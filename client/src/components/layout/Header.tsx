@@ -1,19 +1,28 @@
 import React from 'react';
-import { Search, Bell, Menu } from 'lucide-react';
+import { Search, Bell } from 'lucide-react';
 import './Header.css';
 
 interface HeaderProps {
     title: string;
 }
 
-export const Header: React.FC<HeaderProps> = ({ title }) => {
+const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 18) return 'Good afternoon';
+    return 'Good evening';
+};
+
+export const Header: React.FC<HeaderProps> = () => {
+    const userName = 'Alex'; // This could come from auth context
+
     return (
         <header className="header">
             <div className="header-left">
-                <button className="header-menu-btn">
-                    <Menu size={24} />
-                </button>
-                <h1 className="header-title">{title}</h1>
+                <div className="header-greeting">
+                    <h1 className="greeting-text">{getGreeting()}, <span className="user-name">{userName}</span></h1>
+                    <p className="greeting-subtitle">Here's what's happening today</p>
+                </div>
             </div>
 
             <div className="header-right">
@@ -21,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
                     <Search size={20} className="header-search-icon" />
                     <input
                         type="text"
-                        placeholder="Search products, orders..."
+                        placeholder="Search..."
                         className="header-search-input"
                     />
                 </div>

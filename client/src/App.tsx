@@ -7,6 +7,10 @@ import { PasswordReset } from './pages/auth/PasswordReset';
 import { Dashboard } from './pages/Dashboard';
 import { Operations } from './pages/Operations';
 import { Stock } from './pages/Stock';
+import { Receipts } from './pages/Receipts';
+import { ReceiptDetail } from './pages/ReceiptDetail';
+import { Delivery } from './pages/Delivery';
+import { DeliveryDetail } from './pages/DeliveryDetail';
 import './styles/global.css';
 
 function App() {
@@ -41,6 +45,38 @@ function App() {
             element={
               <ProtectedRoute>
                 <Stock />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/receipts"
+            element={
+              <ProtectedRoute>
+                <Receipts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/receipts/:id"
+            element={
+              <ProtectedRoute>
+                <ReceiptDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/delivery"
+            element={
+              <ProtectedRoute>
+                <Delivery />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/delivery/:id"
+            element={
+              <ProtectedRoute>
+                <DeliveryDetail />
               </ProtectedRoute>
             }
           />
