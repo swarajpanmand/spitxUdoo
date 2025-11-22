@@ -1,0 +1,78 @@
+.stock-table-container {
+background: #ffffff;
+padding: 1.5rem;
+border-radius: 1rem;
+border: 1px solid #d2cdc2;
+box-shadow: 0 4px 8px -2px rgba(47, 78, 78, 0.08);
+}
+
+
+.stock-title {
+color: #2f4444;
+font-size: 1.5rem;
+margin-bottom: 1rem;
+}
+
+
+.btn-add-product {
+background: linear-gradient(135deg, #c9a236 0%, #b38f2e 100%);
+padding: 0.5rem 1rem;
+border: none;
+border-radius: 0.5rem;
+color: #ffffff;
+cursor: pointer;
+margin-bottom: 1rem;
+}
+
+
+.stock-table {
+width: 100%;
+border-collapse: collapse;
+color: #2f4444;
+font-size: 0.95rem;
+}
+
+
+.stock-table thead {
+background: linear-gradient(135deg, #4a6464 0%, #3d5555 100%);
+color: white;
+}
+
+
+.stock-table th,
+.stock-table td {
+padding: 0.75rem 1rem;
+border-bottom: 1px solid #d2cdc2;
+}
+
+
+.stock-table tr {
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.stock-table tr:active {
+    background: #f9f7f3 !important;
+}
+
+
+
+.btn-add-stock {
+background: linear-gradient(135deg, #7a8f56 0%, #6d7f4f 100%);
+padding: 0.4rem 0.8rem;
+border: none;
+border-radius: 0.5rem;
+color: white;
+margin-right: 0.4rem;
+cursor: pointer;
+}
+
+
+.btn-remove-stock {
+background: #d97777;
+padding: 0.4rem 0.8rem;
+border: none;
+border-radius: 0.5rem;
+color: white;
+cursor: pointer;
+}
