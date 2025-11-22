@@ -1,20 +1,22 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { Login } from './pages/auth/Login';
-import { Signup } from './pages/auth/Signup';
-import { PasswordReset } from './pages/auth/PasswordReset';
-import { EmailVerification } from './pages/auth/EmailVerification';
-import { ResetOTP } from './pages/auth/ResetOTP';
-import { NewPassword } from './pages/auth/NewPassword';
-import { Dashboard } from './pages/Dashboard';
-import { Operations } from './pages/Operations';
-import { Stock } from './pages/Stock';
-import { Receipts } from './pages/Receipts';
-import { ReceiptDetail } from './pages/ReceiptDetail';
-import { Delivery } from './pages/Delivery';
-import { DeliveryDetail } from './pages/DeliveryDetail';
-import './styles/global.css';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { Login } from "./pages/auth/Login";
+import { Signup } from "./pages/auth/Signup";
+import { PasswordReset } from "./pages/auth/PasswordReset";
+import { EmailVerification } from "./pages/auth/EmailVerification";
+import { ResetOTP } from "./pages/auth/ResetOTP";
+import { NewPassword } from "./pages/auth/NewPassword";
+import { Dashboard } from "./pages/Dashboard";
+import { Operations } from "./pages/Operations";
+import { Stock } from "./pages/Stock";
+import { Receipts } from "./pages/Receipts";
+import { ReceiptDetail } from "./pages/ReceiptDetail";
+import { Delivery } from "./pages/Delivery";
+import { DeliveryDetail } from "./pages/DeliveryDetail";
+import { Warehouse } from "./pages/Warehouse";
+import { Location } from "./pages/Location";
+import "./styles/global.css";
 
 function App() {
   return (
@@ -90,9 +92,27 @@ function App() {
             path="/history"
             element={
               <ProtectedRoute>
-                <div style={{ padding: '2rem' }}>
+                <div style={{ padding: "2rem" }}>
                   <h1>Move History - Coming Soon</h1>
                 </div>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Settings Routes */}
+          <Route
+            path="/settings/warehouse"
+            element={
+              <ProtectedRoute>
+                <Warehouse />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings/location"
+            element={
+              <ProtectedRoute>
+                <Location />
               </ProtectedRoute>
             }
           />
@@ -100,7 +120,7 @@ function App() {
             path="/settings"
             element={
               <ProtectedRoute>
-                <div style={{ padding: '2rem' }}>
+                <div style={{ padding: "2rem" }}>
                   <h1>Settings - Coming Soon</h1>
                 </div>
               </ProtectedRoute>
