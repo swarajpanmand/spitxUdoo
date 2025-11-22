@@ -1,0 +1,182 @@
+[
+    {
+        "_id": "69213cd852c479707efce8ce",
+        "name": "Super Admin",
+        "email": "admin@stockmaster.com",
+        "password": "Admin@123",
+        "role": "ADMIN",
+        "assignedWarehouse": null,
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8cf",
+        "name": "Bradley Carroll DVM",
+        "email": "shernandez@example.com",
+        "password": "Pass@123",
+        "role": "MANAGER",
+        "assignedWarehouse": "69213cd852c479707efce8cc",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8d0",
+        "name": "Mary Keller",
+        "email": "pjohnson@example.org",
+        "password": "Pass@123",
+        "role": "MANAGER",
+        "assignedWarehouse": "69213cd852c479707efce8cd",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8d1",
+        "name": "Alec Williams",
+        "email": "sally53@example.net",
+        "password": "Pass@123",
+        "role": "MANAGER",
+        "assignedWarehouse": "69213cd852c479707efce8cd",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8d2",
+        "name": "Jason Barnes",
+        "email": "mariasmith@example.org",
+        "password": "Pass@123",
+        "role": "MANAGER",
+        "assignedWarehouse": "69213cd852c479707efce8cc",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8d3",
+        "name": "Dennis Ramos",
+        "email": "marymarsh@example.org",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cc",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8d4",
+        "name": "Rodney Powell",
+        "email": "johnsonrobert@example.com",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cc",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8d5",
+        "name": "John Thomas",
+        "email": "lisabrandt@example.com",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cb",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8d6",
+        "name": "Penny Smith",
+        "email": "caitlin87@example.com",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cd",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8d7",
+        "name": "Kelly Pearson",
+        "email": "drusso@example.org",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cd",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8d8",
+        "name": "William Jones",
+        "email": "webblisa@example.net",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cd",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8d9",
+        "name": "Nicholas Ward",
+        "email": "hallen@example.org",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cb",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8da",
+        "name": "Joshua Romero",
+        "email": "andrewrobinson@example.org",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cb",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8db",
+        "name": "Jacob Ellis",
+        "email": "allisonjohnson@example.net",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cc",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8dc",
+        "name": "Mark Scott",
+        "email": "asmith@example.net",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cd",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8dd",
+        "name": "Ruth Rodriguez",
+        "email": "iclark@example.net",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cc",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8de",
+        "name": "Adam Duncan",
+        "email": "reidkimberly@example.net",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cd",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8df",
+        "name": "Molly Wiley",
+        "email": "joseph96@example.net",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cd",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8e0",
+        "name": "Cynthia Blake",
+        "email": "kristigonzalez@example.net",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cd",
+        "isActive": true
+    },
+    {
+        "_id": "69213cd852c479707efce8e1",
+        "name": "Nancy Johnson",
+        "email": "jvasquez@example.org",
+        "password": "Pass@123",
+        "role": "WAREHOUSE_STAFF",
+        "assignedWarehouse": "69213cd852c479707efce8cc",
+        "isActive": true
+    }
+]
