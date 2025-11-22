@@ -43,59 +43,76 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsLoading(false);
     }, []);
 
-    const login = async (email: string, _password: string) => {
-        try {
-            // TODO: Replace with actual API call
-            // const response = await authAPI.login(email, password);
+    const getPermissionsForRole = (role: string): string[] => {
+        switch (role) {
+            case 'admin':
+                return [
+                    'manage_stock', 'view_reports', 'approve_transfers',
+                    'perform_transfers', 'picking', 'shelving', 'counting',
+                    'manage_users', 'manage_settings'
+                ];
+            case 'manager':
+                return ['manage_stock', 'view_reports', 'approve_transfers'];
+            case 'warehouse':
+                return ['perform_transfers', 'picking', 'shelving', 'counting'];
+            default:
+                return [];
+        }
+    };
 
-            // Mock login for now
-            const mockUser: User = {
-                id: '1',
-                name: 'Demo User',
-                email: email,
-                role: 'Inventory Manager',
-                permissions: ['manage_stock', 'view_reports', 'approve_transfers'],
-                department: 'Inventory Control',
-                isActive: true,
+    const login = async (email: string, password: string) => {
+        try {
+            const response = await fetch('http://localhost:5002/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Login failed');
+            }
+
+            const { token, user } = data;
+
+            // Map backend user to frontend user structure with permissions
+            const userWithPermissions: User = {
+                ...user,
+                permissions: getPermissionsForRole(user.role),
+                isActive: true
             };
 
-            const mockToken = 'mock-jwt-token-' + Date.now();
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', JSON.stringify(userWithPermissions));
 
-            localStorage.setItem('token', mockToken);
-            localStorage.setItem('user', JSON.stringify(mockUser));
-
-            setToken(mockToken);
-            setUser(mockUser);
+            setToken(token);
+            setUser(userWithPermissions);
         } catch (error) {
             console.error('Login error:', error);
             throw error;
         }
     };
 
-    const signup = async (name: string, email: string, _password: string, role: string) => {
+    const signup = async (name: string, email: string, password: string, role: string) => {
         try {
-            // TODO: Replace with actual API call
-            // const response = await authAPI.signup({ name, email, password, role });
+            const response = await fetch('http://localhost:5002/api/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password, role }),
+            });
 
-            // Mock signup for now
-            const mockUser: User = {
-                id: '1',
-                name: name,
-                email: email,
-                role: role as 'Inventory Manager' | 'Warehouse Staff',
-                permissions: role === 'Inventory Manager'
-                    ? ['manage_stock', 'view_reports', 'approve_transfers']
-                    : ['perform_transfers', 'picking', 'shelving', 'counting'],
-                isActive: true,
-            };
+            const data = await response.json();
 
-            const mockToken = 'mock-jwt-token-' + Date.now();
+            if (!response.ok) {
+                throw new Error(data.error || 'Signup failed');
+            }
 
-            localStorage.setItem('token', mockToken);
-            localStorage.setItem('user', JSON.stringify(mockUser));
+            // Signup usually doesn't auto-login if email verification is required
+            // But if the backend returns a token (it currently doesn't for signup), we could login.
+            // The current backend signup returns { success: true, message: "..." }
+            // So we just return here and let the UI handle the redirect/message.
 
-            setToken(mockToken);
-            setUser(mockUser);
         } catch (error) {
             console.error('Signup error:', error);
             throw error;

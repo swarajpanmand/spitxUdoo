@@ -2,8 +2,8 @@ export interface User {
     id: string;
     name: string;
     email: string;
-    role: 'Inventory Manager' | 'Warehouse Staff';
-    permissions: string[];
+    role: 'admin' | 'manager' | 'warehouse';
+    permissions?: string[];
     department?: string;
     isActive: boolean;
 }

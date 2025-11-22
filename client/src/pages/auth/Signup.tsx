@@ -14,7 +14,7 @@ export const Signup: React.FC = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        role: 'Warehouse Staff',
+        role: 'warehouse',
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -114,8 +114,9 @@ export const Signup: React.FC = () => {
                                 className="input input-with-icon"
                                 required
                             >
-                                <option value="Warehouse Staff">Warehouse Staff</option>
-                                <option value="Inventory Manager">Inventory Manager</option>
+                                <option value="warehouse">Warehouse Staff</option>
+                                <option value="manager">Inventory Manager</option>
+                                <option value="admin">Administrator</option>
                             </select>
                         </div>
                     </div>
@@ -157,7 +158,7 @@ export const Signup: React.FC = () => {
                         </p>
                     </div>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
