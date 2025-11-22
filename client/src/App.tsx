@@ -12,11 +12,12 @@ import { Operations } from "./pages/Operations";
 import { Stock } from "./pages/Stock";
 import { Receipts } from "./pages/Receipts";
 import { ReceiptDetail } from "./pages/ReceiptDetail";
-import { Delivery } from "./pages/Delivery";
-import { DeliveryDetail } from "./pages/DeliveryDetail";
-import { Warehouse } from "./pages/Warehouse";
-import { Location } from "./pages/Location";
-import "./styles/global.css";
+import { Delivery } from './pages/Delivery';
+import { DeliveryDetail } from './pages/DeliveryDetail';
+import { Warehouse } from './pages/Warehouse';
+import { Location } from './pages/Location';
+import { MoveHistory } from './pages/MoveHistory';
+import './styles/global.css';
 
 function App() {
   return (
@@ -92,9 +93,7 @@ function App() {
             path="/history"
             element={
               <ProtectedRoute>
-                <div style={{ padding: "2rem" }}>
-                  <h1>Move History - Coming Soon</h1>
-                </div>
+                <MoveHistory />
               </ProtectedRoute>
             }
           />
