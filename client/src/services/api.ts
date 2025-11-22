@@ -122,8 +122,8 @@ export const adjustmentsAPI = {
 
 // Stock Movements API
 export const movementsAPI = {
-    getAll: (filters?: any) => api.get('/movements', { params: filters }),
-    getByProduct: (productId: string) => api.get(`/movements/product/${productId}`),
+    getAll: (filters?: any) => api.get('/moves', { params: filters }),
+    getByProduct: (productId: string) => api.get('/moves', { params: { productId } }),
 };
 
 // Dashboard API
